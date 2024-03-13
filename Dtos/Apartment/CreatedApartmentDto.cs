@@ -20,5 +20,7 @@ namespace MyRent.Dtos.Apartment
         public string detials { get; set; } = string.Empty;
 
         public DateOnly availableDate { get; set; }
+
+        public IFormFileCollection Images { get; set; }
     }
 }

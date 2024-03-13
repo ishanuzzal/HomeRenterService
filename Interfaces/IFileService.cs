@@ -2,6 +2,6 @@
 {
     public interface IFileService
     {
-        public Tuple<string,int> SaveImage(IFormFileCollection files,string id);
+        public Task<Tuple<string,int>> SaveImage(IFormFileCollection files,string apartmentId);
     }
 }

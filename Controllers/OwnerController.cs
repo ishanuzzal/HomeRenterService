@@ -16,9 +16,11 @@ namespace MyRent.Controllers
     {
         private readonly IOwner _owner;
         private readonly IGettingIds _ids;
-        public OwnerController(IOwner owner, IGettingIds ids) {
+        private readonly IFileService _fileService;
+        public OwnerController(IOwner owner, IGettingIds ids, IFileService fileService) {
             _owner = owner;
             _ids = ids;
+            _fileService = fileService;
         }
 
         [HttpGet("userinfo")]
@@ -50,15 +52,19 @@ namespace MyRent.Controllers
         }
 
         [HttpPost("AddApartments")]
-        [Authorize(Roles ="owner")]
-        public async Task<IActionResult> AddApartments([FromBody] FormApartmentDto formApartment)
+        [Authorize(Roles ="Owner")]
+        public async Task<IActionResult> AddApartments([FromForm] FormApartmentDto formApartment)
         {
             string UserName = User.GetUsername();
             string ownerId = await _ids.getOwnerId(UserName);
             if (ownerId == null) { return BadRequest("authentication error"); }
             var model = formApartment.ToApartmentModel(ownerId);
+            var images = formApartment.Images;
+
             var newModel = await  _owner.AddApartment(model);
-            
+            var succass = await _fileService.SaveImage(images, model.Id);
+            if (succass == null) { return BadRequest("could not save"); }
+
             return Ok(newModel.ToApartmentDto());
             
         }

@@ -22,6 +22,8 @@ namespace MyRent.DbContext
 
         public DbSet<Payment> payments { get; set; }
 
+        public DbSet<Images> images { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -1,15 +1,19 @@
 ﻿using MyRent.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using MyRent.DbContext;
+using HomeRenterService.Mappers;
 namespace MyRent.Helpers
 {
     public class HandleImage : IFileService
     {
         private IWebHostEnvironment _environment;
-        public HandleImage(IWebHostEnvironment environment)
+        private readonly ApplicationDbContext _context;
+        public HandleImage(IWebHostEnvironment environment, ApplicationDbContext context)
         {
             _environment = environment;
+            _context = context;
         }
-        public Tuple<string,int> SaveImage(IFormFileCollection files,string id)
+        public async Task<Tuple<string,int>> SaveImage(IFormFileCollection files,string ApartmentId)
         {
             try
             {
@@ -23,7 +27,7 @@ namespace MyRent.Helpers
                 }
 
                 // Create folder for the request ID (if it doesn't exist)
-                var requestFolderPath = Path.Combine(uploadsPath, id);
+                var requestFolderPath = Path.Combine(uploadsPath, ApartmentId);
                 if (!Directory.Exists(requestFolderPath))
                 {
                     Directory.CreateDirectory(requestFolderPath);
@@ -49,6 +53,19 @@ namespace MyRent.Helpers
                     {
                         file.CopyTo(stream);
                     }
+
+                    var Images = ImageMappers.ImageToModel(fullFilePath,ApartmentId);
+
+                    var result = await _context.images.AddAsync(Images);
+                    try
+                    {
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("Failed to save image: " + ex.Message);
+                    }
+               
                 }
 
                 return new Tuple<string, int>("Success", files.Count()); // Return success message and number of saved files

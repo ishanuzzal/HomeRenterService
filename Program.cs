@@ -91,6 +91,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IToken, TokenService>();
 builder.Services.AddScoped<IOwner,OwnerRepository>();
 builder.Services.AddScoped<IGettingIds, GetUsersId>();
+builder.Services.AddScoped<IFileService, HandleImage>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

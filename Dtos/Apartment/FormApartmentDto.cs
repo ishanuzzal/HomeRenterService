@@ -22,5 +22,7 @@ namespace MyRent.Dtos.Apartment
         [Required]
         public string detials { get; set; } = string.Empty;
 
+        public IFormFileCollection Images { get; set; }
+
     }
 }
