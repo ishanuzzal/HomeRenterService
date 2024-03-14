@@ -2,9 +2,9 @@
 
 namespace HomeRenterService.Mappers
 {
-    public static class ImageMappers
+    public class ImageMappers
     {
-        public static Images ImageToModel(string path,string apartmentId)
+        public static Images ImageToModel(string path, string apartmentId)
         {
             return new Images
             {

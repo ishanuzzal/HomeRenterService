@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeRenterService")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3ed68877b0185879fe73340bfc22d1332a9466f")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeRenterService")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeRenterService")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -4,6 +4,8 @@ using MyRent.Model;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
+using MyRent.Mappers;
+using HomeRenterService.Dtos.Image;
 
 namespace MyRent.Mappers
 {
@@ -37,6 +39,12 @@ namespace MyRent.Mappers
                 totalCost = model.totalCost,
                 Advance = model.Advance,
                 detials = model.detials,
+                Images = model.images.Select(image => new ImageDto
+                {
+                    path = image.path,
+                    uploadDate = image.uploadDate,
+
+                }).ToList(),
             };
 
         }

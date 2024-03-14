@@ -24,7 +24,7 @@ namespace MyRent.Controllers
         }
 
         [HttpGet("userinfo")]
-        [Authorize(Roles ="owner")]
+        [Authorize(Roles ="Owner")]
         public async Task<IActionResult> GetUserInfo() {
             string UserName = User.GetUsername();
             var OwnerModel = await _owner.GetAllInfo(UserName);
@@ -37,7 +37,7 @@ namespace MyRent.Controllers
         
         }
         [HttpGet("showAllApartments")]
-        [Authorize(Roles ="owner")]
+        [Authorize(Roles ="Owner")]
         public async Task<IActionResult> ShowApartmentList()
         {
             string UserName = User.GetUsername();

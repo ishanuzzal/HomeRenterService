@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MyRent.Model
 {
@@ -17,7 +18,9 @@ namespace MyRent.Model
 
         [Required]
         [ForeignKey("Apartment")]
+        
         public string ApartmentId { get; set; }
+        
         public Apartment Apartment { get; set; }
 
 

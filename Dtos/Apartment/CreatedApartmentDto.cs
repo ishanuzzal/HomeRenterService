@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HomeRenterService.Dtos.Image;
+using MyRent.Model;
+using System.ComponentModel.DataAnnotations;
 
 namespace MyRent.Dtos.Apartment
 {
@@ -21,6 +23,7 @@ namespace MyRent.Dtos.Apartment
 
         public DateOnly availableDate { get; set; }
 
-        public IFormFileCollection Images { get; set; }
+        [Required]
+        public List<ImageDto> Images { get; set; }
     }
 }

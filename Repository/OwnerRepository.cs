@@ -39,7 +39,7 @@ namespace MyRent.Repository
         {
             var owner = await _context.owners.FirstOrDefaultAsync(o => o.UserName == username);
             if (owner == null) { return new List<Apartment>(); }
-            var apartment = await _context.apartments.Where(e => e.OwnerId == owner.Id).ToListAsync();
+            var apartment = await _context.apartments.Where(e => e.OwnerId == owner.Id).Include(e=>e.images).ToListAsync();
             return apartment;
         }
 
