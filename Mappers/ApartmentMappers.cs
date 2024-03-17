@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using MyRent.Mappers;
 using HomeRenterService.Dtos.Image;
+using HomeRenterService.Dtos.Apartment;
 
 namespace MyRent.Mappers
 {
@@ -15,6 +16,7 @@ namespace MyRent.Mappers
         {
             return new Apartment
             {
+              
                 Area = dto.Area,
                 Contact_No = dto.Contact_No,
                 noRomms = dto.noRomms,
@@ -31,6 +33,7 @@ namespace MyRent.Mappers
         {
             return new CreatedApartmentDto
             {
+                Id = model.Id,
                 Area = model.Area,
                 Contact_No = model.Contact_No,
                 noRomms = model.noRomms,
@@ -47,6 +50,20 @@ namespace MyRent.Mappers
                 }).ToList(),
             };
 
+        }
+
+        public static Apartment ToApartmentModelUpdate(this UpdateApartmentDto dto, string id)
+        {
+            return new Apartment
+            {
+                Area = dto.Area,
+                Contact_No = dto.Contact_No,
+                noRomms = dto.noRomms,
+                noToilets = dto.noToilets,
+                totalCost = dto.totalCost,
+                Advance = dto.Advance,
+                detials = dto.detials,
+            };
         }
     }
 }

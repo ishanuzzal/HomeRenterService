@@ -76,4 +76,26 @@ public class HandleImage : IFileService
             return new Tuple<string, int>("Error: " + ex.Message, 0);
         }
     }
+
+    public bool DeleteImage(string apartmentId)
+    {
+        var contentPath = this._environment.ContentRootPath;
+        var uploadsPath = Path.Combine(contentPath, "Uploads");
+        string folderPath = uploadsPath+ apartmentId;
+      
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    Directory.Delete(folderPath, true); // Set recursive deletion to true
+                return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+              throw new Exception("Failed to delete image: " + ex.Message);
+            }
+        
+    }
 }

@@ -3,5 +3,6 @@
     public interface IFileService
     {
         public Task<Tuple<string,int>> SaveImage(IFormFileCollection files,string apartmentId);
+        public bool DeleteImage(string  apartmentId);
     }
 }

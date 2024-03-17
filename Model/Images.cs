@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -17,10 +18,10 @@ namespace MyRent.Model
         public IFormFile? ImageFile { get; set; }
 
         [Required]
-        [ForeignKey("Apartment")]
-        
         public string ApartmentId { get; set; }
-        
+        [ForeignKey("ApartmentId")]
+
+        [DeleteBehavior(DeleteBehavior.Cascade)]
         public Apartment Apartment { get; set; }
 
 

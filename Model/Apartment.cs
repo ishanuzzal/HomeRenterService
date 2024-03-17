@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyRent.Model
@@ -23,9 +24,10 @@ namespace MyRent.Model
         public int Advance {  get; set; }
         [Required]
         public string detials { get; set; }
-
-        [ForeignKey("Owner")]
         public string OwnerId { get; set; }
+
+        [ForeignKey("OwnerId")]
+        [DeleteBehavior(DeleteBehavior.Cascade)]
         public Owner Owner { get; set; }
 
         public List<Images> images { get; set; }

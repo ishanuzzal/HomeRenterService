@@ -21,7 +21,8 @@ namespace MyRent.Services
             {
                 //new Claim(JwtRegisteredClaimNames.Email, appuser.Email),
                 new Claim(JwtRegisteredClaimNames.GivenName,appuser.UserName),
-                new Claim(ClaimTypes.Role,r)
+                new Claim(ClaimTypes.Role,r),
+                //new Claim(ClaimTypes.NameIdentifier,id)
             };
 
             var creeds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);

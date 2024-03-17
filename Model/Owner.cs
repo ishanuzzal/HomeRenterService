@@ -20,8 +20,9 @@ namespace MyRent.Model
         public string Address { get; set; } = string.Empty;
 
         [Required]
-        [ForeignKey("AppUser")]
+        
         public string AppUserId { get; set; }
+        [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
         public List<Apartment> apartments { get; set; }
 

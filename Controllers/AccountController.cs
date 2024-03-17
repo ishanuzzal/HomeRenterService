@@ -45,6 +45,7 @@ namespace MyRent.Controllers
                     var newOwner = rg.ToOwnerModel(appuser.Id);
                     var createOwner = await _context.owners.AddAsync(newOwner);
                     await _context.SaveChangesAsync();
+                    string ownerId = createOwner.Entity.Id;
                     var roleResult = await _usermanager.AddToRoleAsync(appuser, "owner");
                     var roles = await _usermanager.GetRolesAsync(appuser);
                     string? role = roles.ToString();
@@ -85,8 +86,9 @@ namespace MyRent.Controllers
                 if (createUser.Succeeded)
                 {
                     var newRenter = rg.ToRenterModel(appuser.Id);
-                    var createOwner = await _context.renters.AddAsync(newRenter);
+                    var createRenter = await _context.renters.AddAsync(newRenter);
                     await _context.SaveChangesAsync();
+                    string id = createRenter.Entity.Id;
                     var roleResult = await _usermanager.AddToRoleAsync(appuser, "renter");
                     if (roleResult.Succeeded)
                     {
@@ -96,7 +98,7 @@ namespace MyRent.Controllers
                         {
                             UserName = appuser.UserName,
                             Token = _tokenService.CreateToken(appuser, role)
-                        }); ;
+                        }); 
                     }
                     else return StatusCode(500, roleResult.Errors);
                 }
@@ -123,11 +125,12 @@ namespace MyRent.Controllers
             if (!result.Succeeded) return Unauthorized("username of password is incorrect");
             var roles = await _usermanager.GetRolesAsync(user);
             string? role = roles[0].ToString();
+
             return Ok(new NewUserDto
             {
                 UserName = loginDto.UserName,
                 Token = _tokenService.CreateToken(user, role)
-            });
+            }) ;
         }
     }
 }

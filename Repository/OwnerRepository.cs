@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using HomeRenterService.Dtos.Apartment;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyRent.DbContext;
@@ -48,6 +49,38 @@ namespace MyRent.Repository
             
             var info = await _context.owners.FirstOrDefaultAsync(o => o.UserName== username);
             return info;
+        }
+
+        public async Task<Apartment> DeleteApartmentById(string username,string id)
+        {
+            var apartment = await _context.apartments.FirstOrDefaultAsync(e=>e.Id==id);
+            if (apartment == null) { return  null; }
+            var OwnerUserName = (await _context.owners.FirstOrDefaultAsync(o => o.Id== apartment.OwnerId))?.UserName;
+            if (OwnerUserName != username) return null;
+            _context.apartments.Remove(apartment);
+            await _context.SaveChangesAsync();
+            return apartment;
+        }
+
+        public async Task<Apartment> GetApartmentById(string id)
+        {
+            return await _context.apartments.Where(e => e.Id == id).Include(e => e.images).FirstOrDefaultAsync();
+        }
+
+        public async Task<Apartment> updateApartment(UpdateApartmentDto dto,string id)
+        {
+            var model = await _context.apartments.FindAsync(id);
+            if (model == null) return null;
+            model.Area = dto.Area;
+            model.noRomms = dto.noRomms;
+            model.noToilets = dto.noToilets;
+            model.totalCost = dto.totalCost;
+            model.Advance = dto.Advance;
+            model.availableDate = DateOnly.FromDateTime(DateTime.Today);
+
+            await _context.SaveChangesAsync();
+            return model;
+
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using HomeRenterService.Dtos.Apartment;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.Json;
@@ -68,5 +69,37 @@ namespace MyRent.Controllers
             return Ok(newModel.ToApartmentDto());
             
         }
+
+        [HttpGet("DeleteApartment/:id")]
+        [Authorize(Roles = "Owner")]
+        public async Task<IActionResult> DeleteApartment(string id)
+        {
+           bool ImageDeleSucc = _fileService.DeleteImage(id);
+            if (!ImageDeleSucc) return BadRequest("image not found");
+           var status = await _owner.DeleteApartmentById(User.GetUsername(), id);
+           if(status==null) { return BadRequest("Apartment couldn't deleted"); }
+            return Ok("Deleted succassfully");
+
+        }
+        [HttpGet("Apartment/:id")]
+        [Authorize(Roles = "Owner")]
+        public async Task<IActionResult> GetApartment(string id)
+        {
+            var apartment = await _owner.GetApartmentById(id);
+            if (apartment==null) { return NotFound(id); }
+            return Ok(apartment);   
+        }
+
+        [HttpPut("Apartment/:id")]
+        [Authorize(Roles = "Owner")]
+        public async Task<IActionResult> UpdateApartment([FromForm] UpdateApartmentDto dto, [FromRoute] string id)
+        {
+            //var model = dto.ToApartmentModelUpdate(id);
+            var apartment = await _owner.updateApartment(dto, id);
+            if (apartment==null) { NotFound(); }
+            return Ok(apartment);   
+        }
+
+
     }
 }

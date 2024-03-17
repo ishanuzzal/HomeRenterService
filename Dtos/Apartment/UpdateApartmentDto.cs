@@ -1,13 +1,9 @@
-﻿using HomeRenterService.Dtos.Image;
-using MyRent.Model;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyRent.Dtos.Apartment
+namespace HomeRenterService.Dtos.Apartment
 {
-    public class CreatedApartmentDto
+    public class UpdateApartmentDto
     {
-        [Required]
-        public string Id { get; set; }
         [Required]
         public int Area { get; set; }
         [Required]
@@ -23,9 +19,8 @@ namespace MyRent.Dtos.Apartment
         [Required]
         public string detials { get; set; } = string.Empty;
 
-        public DateOnly availableDate { get; set; }
 
-        [Required]
-        public List<ImageDto> Images { get; set; }
+
+        public IFormFileCollection Images { get; set; }
     }
 }
