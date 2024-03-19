@@ -9,8 +9,9 @@ namespace MyRent.Dtos.Apartment
         [Required]
         public string Id { get; set; }
         [Required]
-        public int Area { get; set; }
+        public int Size { get; set; }
         [Required]
+        public string Address { get; set; }
         public string Contact_No { get; set; } = string.Empty;
         public string noRomms { get; set; } = string.Empty;
         [Required]
@@ -23,7 +24,7 @@ namespace MyRent.Dtos.Apartment
         [Required]
         public string detials { get; set; } = string.Empty;
 
-        public DateOnly availableDate { get; set; }
+        public DateTime availableDate { get; set; }
 
         [Required]
         public List<ImageDto> Images { get; set; }

@@ -10,18 +10,20 @@ namespace MyRent.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         [Required]
-        public int Area { get; set; }
+        public int Size { get; set; }
         [Required]
         public string Contact_No { get; set; }
         public string noRomms { get; set; }
         [Required]
         public string noToilets { get; set; }
         [Required]
-        public DateOnly availableDate { get; set; }
+        public DateTime availableDate { get; set; }
         [Required]
         public int totalCost { get; set; }
         [Required]
         public int Advance {  get; set; }
+        [Required]
+        public string Address { get; set; }
         [Required]
         public string detials { get; set; }
         public string OwnerId { get; set; }

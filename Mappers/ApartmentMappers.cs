@@ -17,11 +17,11 @@ namespace MyRent.Mappers
             return new Apartment
             {
               
-                Area = dto.Area,
+                Size = dto.Size,
                 Contact_No = dto.Contact_No,
                 noRomms = dto.noRomms,
                 noToilets = dto.noToilets,
-                availableDate = DateOnly.FromDateTime(DateTime.Today),
+                availableDate = dto.availableDate,
                 totalCost = dto.totalCost,
                 Advance = dto.Advance,
                 detials = dto.detials,
@@ -34,7 +34,7 @@ namespace MyRent.Mappers
             return new CreatedApartmentDto
             {
                 Id = model.Id,
-                Area = model.Area,
+                //Area = model.Area,
                 Contact_No = model.Contact_No,
                 noRomms = model.noRomms,
                 noToilets = model.noToilets,
@@ -56,7 +56,8 @@ namespace MyRent.Mappers
         {
             return new Apartment
             {
-                Area = dto.Area,
+                Address = dto.Address,
+                Size = dto.Size,
                 Contact_No = dto.Contact_No,
                 noRomms = dto.noRomms,
                 noToilets = dto.noToilets,

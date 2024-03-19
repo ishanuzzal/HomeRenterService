@@ -92,11 +92,19 @@ namespace MyRent.Controllers
 
         [HttpPut("Apartment/:id")]
         [Authorize(Roles = "Owner")]
-        public async Task<IActionResult> UpdateApartment([FromForm] UpdateApartmentDto dto, [FromRoute] string id)
+        public async Task<IActionResult> UpdateApartment([FromForm] UpdateApartmentDto dto,string id)
         {
             //var model = dto.ToApartmentModelUpdate(id);
             var apartment = await _owner.updateApartment(dto, id);
             if (apartment==null) { NotFound(); }
+
+            var images = dto.Images;
+            if (images != null)
+            {
+                _fileService.DeleteImage(id);
+                var result = _fileService.SaveImage(images, id);
+                if(result==null) { return BadRequest("something went wrong"); }
+            } 
             return Ok(apartment);   
         }
 

@@ -71,12 +71,12 @@ namespace MyRent.Repository
         {
             var model = await _context.apartments.FindAsync(id);
             if (model == null) return null;
-            model.Area = dto.Area;
+            model.Size = dto.Size;
             model.noRomms = dto.noRomms;
             model.noToilets = dto.noToilets;
             model.totalCost = dto.totalCost;
             model.Advance = dto.Advance;
-            model.availableDate = DateOnly.FromDateTime(DateTime.Today);
+            model.availableDate = dto.AvailableDate;
 
             await _context.SaveChangesAsync();
             return model;
