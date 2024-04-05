@@ -13,3 +13,17 @@ HomeRenterService is a RESTful web API built using .NET, which provides a set of
 - **[Post] /Renter/register** - Registration for Renter
 - **[Post] /login** - authenticate user and return JWT token
 
+### Owner Controller
+- **[Get] /Owner/userinfo** - Owner Details information retrieve
+- **[Get] /Owner/showAllApartments** - Show all apartments uploaded by the requested owner
+- **[Post] /Owner/AddApartment** - Apartment uploaded by the owner
+- **[Delete] /Owner/DeleteApartment/:id** - Delete apartment with id
+- **[Get] /Owner/Apartment/:id** - Get Apartment by id
+- **[Put] /Owner/Apartment/:id** - update apartment by id
+
+### Renter Controller
+- **[Get] /Renter/Apartment/:id** - Get Apartment with id
+- **[Get] "Renter/allApartments/{MinSize?}/{MaxSize?}/{MaxTotalCost?}/{MinTotalCost?}/{AvailableDate?}** - Get all apartments &  added filtration if provided
+
+## Object Diagram
+![Blank diagram](https://github.com/ishanuzzal/HomeRenterService/assets/70796394/d1ed90dd-d257-452e-bb21-474786461a9b)
