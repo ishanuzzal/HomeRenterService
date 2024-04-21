@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyRent.DbContext;
 using MyRent.Dtos.Apartment;
 using MyRent.Interfaces;
-using MyRent.Mappers;
 using MyRent.Model;
 
 namespace MyRent.Repository
@@ -14,11 +14,12 @@ namespace MyRent.Repository
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
-        
-        public OwnerRepository(ApplicationDbContext context, UserManager<AppUser> userManager)
+        private readonly ILogger<OwnerRepository> _logger;
+        public OwnerRepository(ApplicationDbContext context, UserManager<AppUser> userManager, ILogger<OwnerRepository> logger)
         {
             _context = context;
             _userManager = userManager;
+            _logger = logger;
         }
 
         public async Task<Apartment> AddApartment(Apartment model)
@@ -53,13 +54,21 @@ namespace MyRent.Repository
 
         public async Task<Apartment> DeleteApartmentById(string username,string id)
         {
+            try { 
             var apartment = await _context.apartments.FirstOrDefaultAsync(e=>e.Id==id);
             if (apartment == null) { return  null; }
             var OwnerUserName = (await _context.owners.FirstOrDefaultAsync(o => o.Id== apartment.OwnerId))?.UserName;
             if (OwnerUserName != username) return null;
-            _context.apartments.Remove(apartment);
-            await _context.SaveChangesAsync();
-            return apartment;
+            
+                _context.apartments.Remove(apartment);
+                await _context.SaveChangesAsync();
+                return apartment;
+            }
+            catch(Exception ex) {
+                _logger.LogError(ex, "An error occurred while deleting the apartment.");
+                return null;
+            }
+            
         }
 
         public async Task<Apartment> GetApartmentById(string id)

@@ -3,20 +3,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomeRenterService.Dtos.Apartment
 {
-    public class ApartmentFilter
+    public class ApartmentSearch
     {
-        public int? Id { get; set; }
-        public string? OwnerName { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Price must be a non-negative integer.")]
+        public int? MinPrice { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Price must be a non-negative integer.")]
+        public int? MaxPrice { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Size must be a non-negative integer.")]
         public int? MinSize { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Size must be a non-negative integer.")]
         public int? MaxSize { get; set; }
 
-        public string? Address { get; set; }
-        public string? NoRomms { get; set; } 
-        public string? NoToilets { get; set; } 
-        public int? MinTotalCost { get; set; }
+        public DateTime? Date { get; set; }
 
-        public int? MaxTotalCost { get; set; }
-        public DateTime? AvailableDate { get; set; }
-
+        // You can add custom validation attributes for PriceRange and SizeRange formats
     }
 }

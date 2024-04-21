@@ -9,6 +9,9 @@ using MyRent.Services;
 using MyRent.Interfaces;
 using MyRent.Repository;
 using MyRent.Helpers;
+using HomeRenterService.Interfaces;
+using HomeRenterService.Repository;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -92,6 +95,9 @@ builder.Services.AddScoped<IToken, TokenService>();
 builder.Services.AddScoped<IOwner,OwnerRepository>();
 builder.Services.AddScoped<IGettingIds, GetUsersId>();
 builder.Services.AddScoped<IFileService, HandleImage>();
+builder.Services.AddScoped<IRenter,RenterRepository>();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

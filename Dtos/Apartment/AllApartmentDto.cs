@@ -6,7 +6,7 @@ namespace HomeRenterService.Dtos.Apartment
     public class AllApartmentDto
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required]
         public string OwnerName { get; set; }
         [Required]
@@ -25,6 +25,7 @@ namespace HomeRenterService.Dtos.Apartment
         [Required]
         public string detials { get; set; } = string.Empty;
 
+        [Required]
         public DateTime availableDate { get; set; }
 
         [Required]

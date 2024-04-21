@@ -1,7 +1,6 @@
 ﻿using MyRent.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using MyRent.DbContext;
-using MyRent.Mappers;
 using HomeRenterService.Mappers;
 namespace MyRent.Helpers;
 

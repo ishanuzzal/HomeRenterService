@@ -11,7 +11,7 @@ namespace MyRent.Dtos.Apartment
         [Required]
         public int Size { get; set; }
         [Required]
-        public string Address { get; set; }
+        public string Address { get; set; } 
         public string Contact_No { get; set; } = string.Empty;
         public string noRomms { get; set; } = string.Empty;
         [Required]

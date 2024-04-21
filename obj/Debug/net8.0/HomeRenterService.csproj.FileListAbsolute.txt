@@ -121,3 +121,5 @@ D:\MyRent\obj\Debug\net8.0\HomeRenterService.pdb
 D:\MyRent\obj\Debug\net8.0\HomeRenterService.genruntimeconfig.cache
 D:\MyRent\obj\Debug\net8.0\ref\HomeRenterService.dll
 D:\MyRent\obj\Debug\net8.0\HomeRenterService.sourcelink.json
+D:\MyRent\bin\Debug\net8.0\AutoMapper.dll
+D:\MyRent\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

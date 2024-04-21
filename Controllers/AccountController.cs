@@ -6,7 +6,7 @@ using MyRent.Services;
 using MyRent.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using MyRent.DbContext;
-using MyRent.Mappers;
+using AutoMapper;
 
 namespace MyRent.Controllers
 {
@@ -16,12 +16,14 @@ namespace MyRent.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IToken _tokenService;
         private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(UserManager<AppUser> usermanager, IToken tokenService, SignInManager<AppUser> appuser,ApplicationDbContext context)
+        private readonly IMapper _mapper;
+        public AccountController(UserManager<AppUser> usermanager, IToken tokenService, SignInManager<AppUser> appuser,ApplicationDbContext context,IMapper mapper)
         {
             _usermanager = usermanager;
             _tokenService = tokenService;
             _signInManager = appuser;
             _context = context;
+            _mapper = mapper;
         }
         [HttpPost("Owner/register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto rg)
@@ -42,7 +44,8 @@ namespace MyRent.Controllers
               
                 if (createUser.Succeeded)
                 {
-                    var newOwner = rg.ToOwnerModel(appuser.Id);
+                    var newOwner = _mapper.Map<Owner>(rg);
+                    newOwner.AppUserId = appuser.Id;
                     var createOwner = await _context.owners.AddAsync(newOwner);
                     await _context.SaveChangesAsync();
                     string ownerId = createOwner.Entity.Id;
@@ -85,7 +88,8 @@ namespace MyRent.Controllers
                 var createUser = await _usermanager.CreateAsync(appuser, rg.Password);
                 if (createUser.Succeeded)
                 {
-                    var newRenter = rg.ToRenterModel(appuser.Id);
+                    var newRenter =  _mapper.Map<Renter>(rg);
+                    newRenter.AppUserId = appuser.Id;
                     var createRenter = await _context.renters.AddAsync(newRenter);
                     await _context.SaveChangesAsync();
                     string id = createRenter.Entity.Id;
