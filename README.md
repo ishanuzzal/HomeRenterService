@@ -23,7 +23,7 @@ HomeRenterService is a RESTful web API built using .NET, which provides a set of
 
 ### Renter Controller
 - **[Get] /Renter/Apartment/:id** - Get Apartment with id
-- **[Get] "Renter/allApartments/{MinSize?}/{MaxSize?}/{MaxTotalCost?}/{MinTotalCost?}/{AvailableDate?}** - Get all apartments &  added filtration if provided
+- **[Get] "Renter/allApartments/ViewAllApartment** - Get all apartments &  added filtration if provided
 
 ## Object Diagram
 ![Blank diagram](https://github.com/ishanuzzal/HomeRenterService/assets/70796394/d1ed90dd-d257-452e-bb21-474786461a9b)
